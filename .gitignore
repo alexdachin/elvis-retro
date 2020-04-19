@@ -1,3 +1,6 @@
-deployment/.terraform
+deployment/.terraform/
 deployment/terraform.tfstate
+deployment/terraform.tfstate.backup
+deployment/terraform.tfvars
 node_modules/
+tmp/

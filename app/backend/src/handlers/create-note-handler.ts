@@ -2,8 +2,14 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 
 import notesRepository from '../repositories/notes-repository'
 
+interface CreateNoteEventBody {
+  content: string;
+}
+
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const { content }: { content: string } = JSON.parse(event.body)
+  process.stdout.write(`create-note Event: ${JSON.stringify(event)}`)
+
+  const { content }: CreateNoteEventBody = JSON.parse(event.body)
 
   await notesRepository.create({
     content,
@@ -11,7 +17,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
   })
 
   return {
-    statusCode: 200,
-    body: 'null',
+    statusCode: 201,
+    body: JSON.stringify(null),
   }
 }

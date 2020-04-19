@@ -1,8 +1,10 @@
 import { Note } from '../models/note'
 
 import DynamoDB from 'aws-sdk/clients/dynamodb'
+import { v4 as uuidv4 } from 'uuid'
 
 interface NoteDocument {
+  id: string;
   content: string;
   createdAt: string;
 }
@@ -10,6 +12,7 @@ interface NoteDocument {
 const dynamoClient = new DynamoDB.DocumentClient()
 
 const noteToNoteDocument = (note: Note): NoteDocument => ({
+  id: note.id ?? uuidv4(),
   content: note.content,
   createdAt: note.createdAt.toISOString(),
 })
