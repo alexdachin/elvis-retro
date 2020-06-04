@@ -1,18 +1,19 @@
-module "disconnect" {
+module "create_channel" {
   source = "./modules/websocket-api-route"
 
-  name      = "disconnect"
-  route_key = "$disconnect"
+  name      = "create-channel"
+  route_key = "create-channel"
 
   environment_variables = {
-    TABLE_CONNECTIONS = aws_dynamodb_table.connections.name
+    TABLE_CHANNELS = aws_dynamodb_table.channels.name
   }
 
   api_id            = aws_apigatewayv2_api.websocket_api.id
   api_execution_arn = aws_apigatewayv2_api.websocket_api.execution_arn
   dynamodb_tables = {
-    connections : aws_dynamodb_table.connections
+    channels : aws_dynamodb_table.channels
   }
   resource_prefix = var.resource_prefix
+  response        = true
   tags            = var.tags
 }

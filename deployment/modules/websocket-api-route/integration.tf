@@ -13,6 +13,22 @@ resource "aws_apigatewayv2_route" "route" {
   target    = "integrations/${aws_apigatewayv2_integration.lambda.id}"
 }
 
+resource "aws_apigatewayv2_integration_response" "response" {
+  count = var.response ? 1 : 0
+
+  api_id                   = var.api_id
+  integration_id           = aws_apigatewayv2_integration.lambda.id
+  integration_response_key = "$default"
+}
+
+resource "aws_apigatewayv2_route_response" "example" {
+  count = var.response ? 1 : 0
+
+  api_id             = var.api_id
+  route_id           = aws_apigatewayv2_route.route.id
+  route_response_key = "$default"
+}
+
 resource "aws_lambda_permission" "api_lambda_invoke" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.lambda.function_name

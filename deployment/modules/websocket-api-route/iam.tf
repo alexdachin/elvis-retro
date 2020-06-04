@@ -38,3 +38,22 @@ resource "aws_iam_role_policy" "write_to_cloudwatch" {
   }
   EOF
 }
+
+resource "aws_iam_role_policy" "dynamodb_access" {
+  for_each = var.dynamodb_tables
+
+  name   = "${var.resource_prefix}-${var.name}-dynamodb-access"
+  role   = aws_iam_role.lambda.name
+  policy = <<-EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Action": "dynamodb:*Item",
+        "Effect": "Allow",
+        "Resource": "${each.value.arn}"
+      }
+    ]
+  }
+  EOF
+}

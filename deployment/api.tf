@@ -5,24 +5,16 @@ resource "aws_apigatewayv2_api" "websocket_api" {
   tags                       = var.tags
 }
 
-resource "aws_apigatewayv2_deployment" "deployed" {
-  api_id = aws_apigatewayv2_api.websocket_api.id
-
-  depends_on = [
-    module.connect,
-    module.create_note,
-    module.disconnect,
-  ]
-}
-
 resource "aws_apigatewayv2_stage" "deployed" {
-  api_id        = aws_apigatewayv2_api.websocket_api.id
-  deployment_id = aws_apigatewayv2_deployment.deployed.id
-  name          = "deployed"
+  api_id      = aws_apigatewayv2_api.websocket_api.id
+  auto_deploy = true
+  name        = "deployed"
 
   default_route_settings {
-    data_trace_enabled = true
-    logging_level      = "ERROR"
+    data_trace_enabled     = true
+    logging_level          = "ERROR"
+    throttling_burst_limit = 5000
+    throttling_rate_limit  = 10000
   }
 }
 
