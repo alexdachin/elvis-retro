@@ -1,3 +1,10 @@
+locals {
+  dynamodb_tables = {
+    channels : aws_dynamodb_table.channels
+    connections : aws_dynamodb_table.connections
+  }
+}
+
 resource "aws_dynamodb_table" "connections" {
   name = "${var.resource_prefix}-connections"
 

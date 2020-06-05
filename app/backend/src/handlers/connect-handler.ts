@@ -13,6 +13,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
       await connectionsRepository.create({
         connectionId,
         name: null,
+        channelId: null,
         createdAt: new Date(),
       })
     } else {

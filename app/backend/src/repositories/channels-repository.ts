@@ -66,7 +66,7 @@ export default {
     await dynamoClient.update({
       TableName: table,
       Key: { id },
-      UpdateExpression: 'set #connectedConnectionIds = list_append($connectedConnectionIds, :connectionId)',
+      UpdateExpression: 'set #connectedConnectionIds = list_append(#connectedConnectionIds, :connectionId)',
       ExpressionAttributeNames: { '#connectedConnectionIds': 'connectedConnectionIds' },
       ExpressionAttributeValues: { ':connectionId': [connectionId] },
     }).promise()

@@ -1,8 +1,8 @@
-module "connect" {
+module "set_name" {
   source = "./modules/websocket-api-route"
 
-  name      = "connect"
-  route_key = "$connect"
+  name      = "set-name"
+  route_key = "set-name"
 
   environment_variables = {
     TABLE_CHANNELS    = aws_dynamodb_table.channels.name
@@ -13,5 +13,6 @@ module "connect" {
   api_execution_arn = aws_apigatewayv2_api.websocket_api.execution_arn
   dynamodb_tables   = local.dynamodb_tables
   resource_prefix   = var.resource_prefix
+  response          = true
   tags              = var.tags
 }

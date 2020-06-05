@@ -4,9 +4,10 @@ module.exports = {
   mode: 'production',
   entry: {
     'connect-handler': './src/handlers/connect-handler.ts',
+    'disconnect-handler': './src/handlers/disconnect-handler.ts',
     'create-channel-handler': './src/handlers/create-channel-handler.ts',
     'join-channel-handler': './src/handlers/join-channel-handler.ts',
-    'disconnect-handler': './src/handlers/disconnect-handler.ts',
+    'set-name-handler': './src/handlers/set-name-handler.ts',
   },
   target: 'node',
   resolve: {
